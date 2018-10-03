@@ -19,6 +19,9 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^guardar/$', views.guardar, name='guardar'),
+    #url(r'^overlap/$', views.overlap, name='overlap'),
+
     #url(r'^login$', views.login_view, name='login'),
     #url(r'^logout$', views.logout_view, name='logout'),
     url(r'^admin/', admin.site.urls),

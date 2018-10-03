@@ -1,18 +1,76 @@
 {% load staticfiles %}
-
 <html>
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <!--full calendar-->
     <link href="{% static 'css/fullcalendar.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/estilos.css' %}" media="all" rel="stylesheet" type="text/css" />
     <script src="{% static 'js/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'js/es.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
   </head>
+  <style media="screen">
+    .orange {
+      background-color: orange;
+      border-color:inherit;
+    }
+    .red {
+      background-color: red;
+      border-color:inherit;
+    }
+    .purple {
+      background-color: purple;
+      border-color:inherit;
+    }
+    .green{
+      background-color: green;
+      border-color:inherit;
+    }
+    .pink{
+      background-color: pink;
+      border-color:inherit;
+    }
+  </style>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+  </div>
   <body>
     <div class="row">
-      <div class="col"></div>
+      <div class="col">
+        <div id='external-events'>
+          <p>
+            <strong>Materias</strong>
+          </p>
+          <div class='fc-event orange' data-color="orange">My Event 1</div>
+          <div class='fc-event green' data-color="green">My Event 2</div>
+          <div class='fc-event red' data-color="red">My Event 3</div>
+          <div class='fc-event purple' data-color="purple">My Event 4</div>
+          <div class='fc-event pink' data-color="pink">My Event 5</div>
+        </div>
+      </div>
       <div class="col-md-7">
         <div id="calendarioWeb"></div>
       </div>
@@ -20,8 +78,17 @@
     </div>
   </body>
 </html>
+<script type="text/javascript" src="{% static 'js/calendario.js'%}"></script>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('#calendarioWeb').fullCalendar();
+function getEventos() {
+  $.ajax({
+    url:"{% url 'guardar' %}",
+    type:'get',
+    success:function(eventos) {
+      if(eventos){
+        $('#calendarioWeb').fullCalendar('renderEvents', eventos);
+      }
+    }
   });
+}
 </script>
